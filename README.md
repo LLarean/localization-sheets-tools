@@ -24,7 +24,7 @@ No package manager required — copy the script files directly into your Apps Sc
 
 1. Open your Google Sheet
 2. Go to **Extensions → Apps Script**
-3. Create four script files and paste the contents from [`Scripts/`](Scripts/)
+3. Create a file for each script in [`Scripts/`](Scripts/) and paste the contents
 4. Save and reload the spreadsheet
 5. The **Localization Tools** menu will appear in the menu bar
 
@@ -40,6 +40,32 @@ Scripts expect the following layout:
 - First column — localization keys
 - First row — language identifiers (column headers)
 - Multiple sheets are supported and processed together
+
+## Usage
+
+All tools are available via the **Localization Tools** menu in the spreadsheet menu bar.
+
+### Export JSON
+Click **Export JSON** — a dialog opens with the full localization JSON. Use the **Copy to clipboard** button to copy it for use in your project.
+
+### Import JSON
+Click **Import JSON** — paste a localization JSON into the dialog and click **Import**. The script matches each language by name (using `LANG_MAP` if configured) and updates the corresponding cells. Only existing keys are updated; new keys are not added.
+
+### Find Key / Find Key + Duplicates
+Click **Find Key** — enter a key name. The sheet will scroll to the first match.
+Click **Find Key + Duplicates** — same, but scans all sheets and reports every occurrence if the key appears more than once.
+
+### Missing Translations
+Click **Missing Translations** — the script scans all sheets and shows a dialog with all keys that have at least one empty cell, grouped by language.
+
+### Sort Keys
+Click **Sort Keys** — confirm the prompt. All rows on all sheets are sorted alphabetically by key (column A). Row 1 (headers) is not affected.
+
+### Unique Chars (current sheet)
+Click **Unique Chars (current sheet)** — enter a language name from the header row, or leave empty to collect characters from all languages on the active sheet. The dialog shows a character string, a JSON array, and a Unicode range — ready to paste into a font tool.
+
+### Unique Chars (all sheets)
+Click **Unique Chars (all sheets)** — same as above, but aggregates characters across all sheets, grouped by language.
 
 ## Configuration
 
