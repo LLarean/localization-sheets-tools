@@ -52,6 +52,7 @@ const LANG_ORDER = [
 
 function exportToJson() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  ss.toast('Exporting\u2026', 'Export JSON');
   const langDicts = {};
   const discoveredOrder = [];
 

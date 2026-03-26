@@ -13,6 +13,7 @@ Designed for projects using [Unity Localization](https://docs.unity3d.com/Packag
 - **Import JSON** — parses a localization JSON and writes values back into the sheet
 - **Find Key** — instantly navigates to a key across all sheets
 - **Find Key + Duplicates** — same, but also reports all duplicate entries
+- **Find Text** — searches for a substring across all translation values on all sheets
 - **Missing Translations** — scans all sheets and lists keys with empty cells per language
 - **Sort Keys** — sorts all rows alphabetically by key across all sheets
 - **Unique Chars (current sheet)** — collects unique characters for a specific language; useful for font atlas generation
@@ -50,6 +51,9 @@ Click **Export JSON** — a dialog opens with the full localization JSON. Use th
 
 ### Import JSON
 Click **Import JSON** — paste a localization JSON into the dialog and click **Import**. The script matches each language by name (using `LANG_MAP` if configured) and updates the corresponding cells. Only existing keys are updated; new keys are not added.
+
+### Find Text
+Click **Find Text** — enter any text fragment. The script searches case-insensitively across all translation columns on all sheets and shows results in a table: sheet, row, key, language, and matched value.
 
 ### Find Key / Find Key + Duplicates
 Click **Find Key** — enter a key name. The sheet will scroll to the first match.
@@ -115,6 +119,7 @@ The exported JSON follows this structure:
 | `ExportJson.gs` | Exports all sheets to a localization JSON |
 | `ImportJson.gs` | Parses a localization JSON and updates matching cells in the sheet |
 | `FindKey.gs` | Finds a key by exact match; navigates to its cell |
+| `FindText.gs` | Searches for a text substring across all translation values |
 | `MissingTranslations.gs` | Reports keys with empty translations, grouped by language |
 | `SortKeys.gs` | Sorts all rows alphabetically by key across all sheets |
 | `UniqueChars.gs` | Collects unique characters per language or across all languages |

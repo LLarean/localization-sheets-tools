@@ -8,6 +8,7 @@ function sortKeys() {
   if (response !== ui.Button.OK) return;
 
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  ss.toast('Sorting\u2026', 'Sort Keys');
 
   for (const sheet of ss.getSheets()) {
     const lastRow = sheet.getLastRow();

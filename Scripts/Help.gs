@@ -8,6 +8,7 @@ function showHelp() {
         <tr><td style="padding:4px 0; color:#555;">Export JSON</td><td style="padding:4px 8px;">Exports all sheets to a structured localization JSON</td></tr>
         <tr><td style="padding:4px 0; color:#555;">Import JSON</td><td style="padding:4px 8px;">Parses a JSON and writes values back into the sheet</td></tr>
         <tr><td style="padding:4px 0; color:#555;">Find Key</td><td style="padding:4px 8px;">Navigates to a key; detects duplicates across all sheets</td></tr>
+        <tr><td style="padding:4px 0; color:#555;">Find Text</td><td style="padding:4px 8px;">Searches for a text substring across all translation values</td></tr>
         <tr><td style="padding:4px 0; color:#555;">Missing Translations</td><td style="padding:4px 8px;">Lists keys with empty cells, grouped by language</td></tr>
         <tr><td style="padding:4px 0; color:#555;">Sort Keys</td><td style="padding:4px 8px;">Sorts all rows alphabetically by key across all sheets</td></tr>
         <tr><td style="padding:4px 0; color:#555;">Unique Chars</td><td style="padding:4px 8px;">Extracts unique characters per language with Unicode range</td></tr>

@@ -1,5 +1,6 @@
 function findMissingTranslations() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  ss.toast('Scanning sheets\u2026', 'Missing Translations');
   const missing = [];
 
   for (const sheet of ss.getSheets()) {
@@ -34,10 +35,13 @@ function findMissingTranslations() {
   const sectionsData = Object.entries(byLang).map(([lang, keys]) => ({ lang, keys }));
 
   const html = HtmlService.createHtmlOutput(`
-    <div id="container" style="padding:20px; font-family:monospace; font-size:13px;"></div>
+    <div id="container" style="padding:20px; font-family:monospace; font-size:13px;">
+      <p style="color:#888;">Loading\u2026</p>
+    </div>
     <script>
       const sections = ${JSON.stringify(sectionsData)};
       const container = document.getElementById('container');
+      container.innerHTML = '';
 
       sections.forEach(({ lang, keys }, i) => {
         if (i > 0) container.appendChild(document.createElement('hr'));

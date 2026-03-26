@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0] — 2026-03-26
+
+### Added
+- `FindText.gs` — case-insensitive substring search across all translation values on all sheets; results shown as a table
+
+### Changed
+- `ExportJson.gs`, `SortKeys.gs`, `UniqueChars.gs` — added toast notifications during processing
+
 ## [1.1.0] — 2026-03-26
 
 ### Added

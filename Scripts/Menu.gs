@@ -6,6 +6,7 @@ function onOpen() {
     .addSeparator()
     .addItem('Find Key', 'findKey')
     .addItem('Find Key + Duplicates', 'findKeyWithDuplicates')
+    .addItem('Find Text', 'findText')
     .addSeparator()
     .addItem('Missing Translations', 'findMissingTranslations')
     .addItem('Sort Keys', 'sortKeys')

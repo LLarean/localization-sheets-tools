@@ -36,6 +36,7 @@ function exportUniqueCharacters() {
 
 function exportUniqueCharactersAll() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  ss.toast('Scanning sheets\u2026', 'Unique Chars');
   const sheets = ss.getSheets();
   const langChars = {};
 
