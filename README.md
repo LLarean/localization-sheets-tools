@@ -21,13 +21,51 @@ Designed for projects using [Unity Localization](https://docs.unity3d.com/Packag
 
 ## Quick Start
 
-No package manager required — copy the script files directly into your Apps Script project:
+Two ways to install — manually or via [clasp](https://github.com/google/clasp).
+
+### Option A — Manual
+
+No package manager required:
 
 1. Open your Google Sheet
 2. Go to **Extensions → Apps Script**
 3. Create a file for each script in [`Scripts/`](Scripts/) and paste the contents
 4. Save and reload the spreadsheet
 5. The **Localization Tools** menu will appear in the menu bar
+
+### Option B — clasp (recommended for updates)
+
+[clasp](https://github.com/google/clasp) is Google's official CLI for Apps Script — push all files in one command.
+
+**First time setup:**
+
+```bash
+npm install -g @google/clasp
+clasp login
+```
+
+1. Open your Google Sheet → **Extensions → Apps Script**
+2. Go to **Project Settings** and copy the **Script ID**
+3. In the repo root, copy `.clasp.json.example` to `.clasp.json` and paste your Script ID:
+```json
+{
+  "scriptId": "YOUR_SCRIPT_ID_HERE",
+  "rootDir": "./Scripts"
+}
+```
+4. Push all scripts:
+```bash
+clasp push
+```
+5. Reload the spreadsheet — the **Localization Tools** menu will appear
+
+**Updating later:**
+
+```bash
+clasp push
+```
+
+That's it — all changes are live immediately.
 
 ## Sheet Structure
 
