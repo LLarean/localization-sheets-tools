@@ -6,7 +6,7 @@ function exportUniqueCharacters() {
 
   const response = ui.prompt(
     'Unique Characters',
-    'Enter language name (as in header) or leave empty for all:',
+    'Enter language name or leave empty for all:\n\nAvailable: ' + langs.join(', '),
     ui.ButtonSet.OK_CANCEL
   );
   if (response.getSelectedButton() !== ui.Button.OK) return;

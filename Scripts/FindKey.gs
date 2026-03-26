@@ -1,12 +1,18 @@
 function findKey() {
-  const key = Browser.inputBox('Find Key', 'Enter localization key:', Browser.Buttons.OK_CANCEL);
-  if (key === 'cancel' || !key) return;
+  const ui = SpreadsheetApp.getUi();
+  const response = ui.prompt('Find Key', 'Enter localization key:', ui.ButtonSet.OK_CANCEL);
+  if (response.getSelectedButton() !== ui.Button.OK) return;
+  const key = response.getResponseText().trim();
+  if (!key) return;
   findKeyInSheets(key, false);
 }
 
 function findKeyWithDuplicates() {
-  const key = Browser.inputBox('Find Key', 'Enter localization key:', Browser.Buttons.OK_CANCEL);
-  if (key === 'cancel' || !key) return;
+  const ui = SpreadsheetApp.getUi();
+  const response = ui.prompt('Find Key + Duplicates', 'Enter localization key:', ui.ButtonSet.OK_CANCEL);
+  if (response.getSelectedButton() !== ui.Button.OK) return;
+  const key = response.getResponseText().trim();
+  if (!key) return;
   findKeyInSheets(key, true);
 }
 

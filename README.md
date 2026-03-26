@@ -10,8 +10,11 @@ Designed for projects using [Unity Localization](https://docs.unity3d.com/Packag
 ## Features
 
 - **Export JSON** — exports all sheets into a structured localization JSON, ready for Unity or any JSON-driven pipeline
+- **Import JSON** — parses a localization JSON and writes values back into the sheet
 - **Find Key** — instantly navigates to a key across all sheets
 - **Find Key + Duplicates** — same, but also reports all duplicate entries
+- **Missing Translations** — scans all sheets and lists keys with empty cells per language
+- **Sort Keys** — sorts all rows alphabetically by key across all sheets
 - **Unique Chars (current sheet)** — collects unique characters for a specific language; useful for font atlas generation
 - **Unique Chars (all sheets)** — same across all sheets and languages
 
@@ -84,7 +87,10 @@ The exported JSON follows this structure:
 |------|-------------|
 | `Menu.gs` | Registers the **Localization Tools** menu on spreadsheet open |
 | `ExportJson.gs` | Exports all sheets to a localization JSON |
+| `ImportJson.gs` | Parses a localization JSON and updates matching cells in the sheet |
 | `FindKey.gs` | Finds a key by exact match; navigates to its cell |
+| `MissingTranslations.gs` | Reports keys with empty translations, grouped by language |
+| `SortKeys.gs` | Sorts all rows alphabetically by key across all sheets |
 | `UniqueChars.gs` | Collects unique characters per language or across all languages |
 
 ## Related Tools
