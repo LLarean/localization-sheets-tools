@@ -12,5 +12,7 @@ function onOpen() {
     .addSeparator()
     .addItem('Unique Chars (current sheet)', 'exportUniqueCharacters')
     .addItem('Unique Chars (all sheets)', 'exportUniqueCharactersAll')
+    .addSeparator()
+    .addItem('Help', 'showHelp')
     .addToUi();
 }

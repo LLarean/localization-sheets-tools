@@ -92,6 +92,7 @@ The exported JSON follows this structure:
 | `MissingTranslations.gs` | Reports keys with empty translations, grouped by language |
 | `SortKeys.gs` | Sorts all rows alphabetically by key across all sheets |
 | `UniqueChars.gs` | Collects unique characters per language or across all languages |
+| `Help.gs` | Shows a help dialog with tool descriptions and links to related utilities |
 
 ## Related Tools
 
