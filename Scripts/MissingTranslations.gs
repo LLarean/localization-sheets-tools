@@ -1,7 +1,9 @@
 function findMissingTranslations() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  ss.toast('Scanning sheets\u2026', 'Missing Translations');
-  const missing = [];
+  ss.toast('Scanning all sheets for missing translations\u2026', 'Missing Translations', 30);
+
+  const byLang = {};
+  let total = 0;
 
   for (const sheet of ss.getSheets()) {
     const data = sheet.getDataRange().getValues();
@@ -15,51 +17,43 @@ function findMissingTranslations() {
         if (!lang) return;
         const val = data[i][idx + 1];
         if (val === '' || val === null || val === undefined) {
-          missing.push({ sheet: sheet.getName(), key, lang });
+          if (!byLang[lang]) byLang[lang] = 0;
+          byLang[lang]++;
+          total++;
         }
       });
     }
   }
 
-  if (missing.length === 0) {
-    SpreadsheetApp.getUi().alert('No missing translations found.');
+  if (total === 0) {
+    ss.toast('No missing translations found.', 'Missing Translations', 5);
     return;
   }
 
-  const byLang = {};
-  missing.forEach(({ sheet, key, lang }) => {
-    if (!byLang[lang]) byLang[lang] = [];
-    byLang[lang].push(`${sheet} \u2192 ${key}`);
-  });
-
-  const sectionsData = Object.entries(byLang).map(([lang, keys]) => ({ lang, keys }));
+  const summary = Object.entries(byLang)
+    .sort((a, b) => b[1] - a[1]);
 
   const html = HtmlService.createHtmlOutput(`
-    <div id="container" style="padding:20px; font-family:monospace; font-size:13px;">
-      <p style="color:#888;">Loading\u2026</p>
-    </div>
-    <script>
-      const sections = ${JSON.stringify(sectionsData)};
-      const container = document.getElementById('container');
-      container.innerHTML = '';
+    <style>
+      body { font-family: Arial, sans-serif; font-size: 13px; padding: 16px; margin: 0; }
+      h2 { margin: 0 0 4px; font-size: 15px; }
+      .subtitle { color: #888; margin: 0 0 12px; font-size: 12px; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #e0e0e0; }
+      th { background: #f5f5f5; font-weight: 600; }
+      .count { text-align: right; font-variant-numeric: tabular-nums; }
+    </style>
+    <h2>Missing Translations</h2>
+    <p class="subtitle">${total} missing entries across ${summary.length} language(s)</p>
+    <table>
+      <thead><tr><th>Language</th><th class="count">Missing</th></tr></thead>
+      <tbody>
+        ${summary.map(([lang, count]) =>
+          `<tr><td>${lang}</td><td class="count">${count}</td></tr>`
+        ).join('')}
+      </tbody>
+    </table>
+  `).setWidth(400).setHeight(Math.min(140 + summary.length * 32, 560));
 
-      sections.forEach(({ lang, keys }, i) => {
-        if (i > 0) container.appendChild(document.createElement('hr'));
-        const div = document.createElement('div');
-        div.style.marginBottom = '20px';
-
-        const h3 = document.createElement('h3');
-        h3.textContent = lang + ' \u2014 ' + keys.length + ' missing';
-
-        const ta = document.createElement('textarea');
-        ta.style.cssText = 'width:100%; height:120px;';
-        ta.value = keys.join('\n');
-
-        div.append(h3, ta);
-        container.appendChild(div);
-      });
-    </script>
-  `).setWidth(600).setHeight(500);
-
-  SpreadsheetApp.getUi().showModalDialog(html, `Missing Translations \u2014 ${missing.length} total`);
+  SpreadsheetApp.getUi().showModalDialog(html, 'Missing Translations');
 }
