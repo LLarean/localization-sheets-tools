@@ -1,7 +1,7 @@
-# 🌐 Localization Sheets Tools
+# Localization Sheets Tools
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)]()
+![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)
 [![Platform: Google Sheets](https://img.shields.io/badge/Platform-Google%20Sheets-green.svg)]()
 
 Google Apps Script utilities for managing game localization in Google Sheets.
@@ -23,9 +23,7 @@ Designed for projects using [Unity Localization](https://docs.unity3d.com/Packag
 
 Two ways to install — manually or via [clasp](https://github.com/google/clasp).
 
-### Option A — Manual
-
-No package manager required:
+### Manual
 
 1. Open your Google Sheet
 2. Go to **Extensions → Apps Script**
@@ -33,7 +31,7 @@ No package manager required:
 4. Save and reload the spreadsheet
 5. The **Localization Tools** menu will appear in the menu bar
 
-### Option B — clasp (recommended for updates)
+### clasp (recommended for updates)
 
 [clasp](https://github.com/google/clasp) is Google's official CLI for Apps Script — push all files in one command.
 
@@ -46,7 +44,7 @@ clasp login
 
 1. Open your Google Sheet → **Extensions → Apps Script**
 2. Go to **Project Settings** and copy the **Script ID**
-3. In the repo root, copy `.clasp.json.example` to `.clasp.json` and paste your Script ID:
+3. Copy `.clasp.json.example` to `.clasp.json` and paste your Script ID:
 ```json
 {
   "scriptId": "YOUR_SCRIPT_ID_HERE",
@@ -59,13 +57,7 @@ clasp push
 ```
 5. Reload the spreadsheet — the **Localization Tools** menu will appear
 
-**Updating later:**
-
-```bash
-clasp push
-```
-
-That's it — all changes are live immediately.
+**Updating later:** `clasp push`
 
 ## Sheet Structure
 
@@ -85,53 +77,48 @@ Scripts expect the following layout:
 All tools are available via the **Localization Tools** menu in the spreadsheet menu bar.
 
 ### Export JSON
-Click **Export JSON** — a dialog opens with the full localization JSON. Use the **Copy to clipboard** button to copy it for use in your project.
+Click **Export JSON** — a dialog opens with the full localization JSON. Use the **Copy to clipboard** button.
 
 ### Import JSON
-Click **Import JSON** — paste a localization JSON into the dialog and click **Import**. The script matches each language by name (using `LANG_MAP` if configured) and updates the corresponding cells. Only existing keys are updated; new keys are not added.
+Click **Import JSON** — paste a localization JSON and click **Import**. The script matches each language by name (using `LANG_MAP` if configured) and updates the corresponding cells. Only existing keys are updated; new keys are not added.
 
 ### Find Text
-Click **Find Text** — enter any text fragment. The script searches case-insensitively across all translation columns on all sheets and shows results in a table: sheet, row, key, language, and matched value.
+Click **Find Text** — enter any text fragment. Results show: sheet, row, key, language, and matched value.
 
 ### Find Key / Find Key + Duplicates
 Click **Find Key** — enter a key name. The sheet will scroll to the first match.
-Click **Find Key + Duplicates** — same, but scans all sheets and reports every occurrence if the key appears more than once.
+Click **Find Key + Duplicates** — same, but scans all sheets and reports every occurrence.
 
 ### Missing Translations
-Click **Missing Translations** — the script scans all sheets and shows a dialog with all keys that have at least one empty cell, grouped by language.
+Click **Missing Translations** — shows all keys with at least one empty cell, grouped by language.
 
 ### Sort Keys
-Click **Sort Keys** — confirm the prompt. All rows on all sheets are sorted alphabetically by key (column A). Row 1 (headers) is not affected.
+Click **Sort Keys** — confirm the prompt. All rows on all sheets are sorted alphabetically by key. Row 1 (headers) is not affected.
 
 ### Unique Chars (current sheet)
-Click **Unique Chars (current sheet)** — enter a language name from the header row, or leave empty to collect characters from all languages on the active sheet. The dialog shows a character string, a JSON array, and a Unicode range — ready to paste into a font tool.
+Click **Unique Chars (current sheet)** — enter a language name or leave empty for all languages on the active sheet. Shows a character string, a JSON array, and a Unicode range.
 
 ### Unique Chars (all sheets)
-Click **Unique Chars (all sheets)** — same as above, but aggregates characters across all sheets, grouped by language.
+Click **Unique Chars (all sheets)** — same, but aggregates across all sheets, grouped by language.
 
 ## Configuration
 
-Open `ExportJson.gs` and adjust the config section at the top of the file:
+Open `ExportJson.gs` and adjust the config section at the top:
 ```javascript
 // Map spreadsheet column headers to exported language names.
-// Remove or leave empty to use column headers as-is.
 const LANG_MAP = {
   'en': 'English',
   'ru': 'Russian',
-  // ...
 };
 
 // Defines the order of languages in the exported JSON.
-const LANG_ORDER = [
-  'English', 'Russian', // ...
-];
+const LANG_ORDER = ['English', 'Russian'];
 ```
 
-If your column headers already match the names you want in the JSON output — clear `LANG_MAP` and leave it as an empty object `{}`.
+If column headers already match the names you want in the JSON — leave `LANG_MAP` as an empty object `{}`.
 
 ## Export Format
 
-The exported JSON follows this structure:
 ```json
 {
   "Localization": {
@@ -155,17 +142,15 @@ The exported JSON follows this structure:
 |------|-------------|
 | `Menu.gs` | Registers the **Localization Tools** menu on spreadsheet open |
 | `ExportJson.gs` | Exports all sheets to a localization JSON |
-| `ImportJson.gs` | Parses a localization JSON and updates matching cells in the sheet |
+| `ImportJson.gs` | Parses a localization JSON and updates matching cells |
 | `FindKey.gs` | Finds a key by exact match; navigates to its cell |
 | `FindText.gs` | Searches for a text substring across all translation values |
 | `MissingTranslations.gs` | Reports keys with empty translations, grouped by language |
 | `SortKeys.gs` | Sorts all rows alphabetically by key across all sheets |
 | `UniqueChars.gs` | Collects unique characters per language or across all languages |
-| `Help.gs` | Shows a help dialog with tool descriptions and links to related utilities |
+| `Help.gs` | Shows a help dialog with tool descriptions |
 
 ## Related Tools
-
-This script set is part of a broader localization pipeline for Unity projects:
 
 | Tool | Description |
 |------|-------------|
@@ -179,8 +164,6 @@ This script set is part of a broader localization pipeline for Unity projects:
 - Google Apps Script (no additional dependencies)
 
 ## Contributing
-
-Contributions are welcome:
 
 - **Bug reports**: [Open an issue](../../issues)
 - **Feature requests**: Describe your use case in an issue
